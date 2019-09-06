@@ -39,9 +39,9 @@ use Pimple\Exception\UnknownIdentifierException; //未知ID异常
 class Container implements \ArrayAccess //实现了ArrayAccess , $this->abc 可以通过$this['abc']访问
 {
     private $values = array(); //存放key=>value , value可能是任意值也可能是Closure , 也可能是执行Closure后的object (单例的实现)
-    private $factories; //如果设为了factory方法, 则value不会被替换为object , 而是每次都调用Closure返回一个新object
+    private $factories; //如果设为了factory方法, 则value不会被替换为object , 而是每次都调用Closure返回一个新object (工厂模式实现相关)
     private $protected; //防止容器中设为protect的Closure属性被当做service使用(调用返回object) , 而应该当做一个Closure变量 
-    private $frozen = array(); //Closure被执行后就会frozen
+    private $frozen = array(); //Closure被执行后就会frozen (单例实现相关)
     private $raw = array();  // 存放原始Closure (因为value已变成object)
     private $keys = array(); //存放key=>bool , 标记service是否存在
 
