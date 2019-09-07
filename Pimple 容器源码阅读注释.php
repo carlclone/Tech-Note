@@ -31,6 +31,14 @@ use Pimple\Exception\FrozenServiceException; //  冻结服务异常 , 不能被�
 use Pimple\Exception\InvalidServiceIdentifierException; // 非法ID异常
 use Pimple\Exception\UnknownIdentifierException; //未知ID异常
 
+/*
+ * 参考资料:
+ * https://segmentfault.com/a/1190000014480078
+ * https://segmentfault.com/a/1190000014487490
+ * https://segmentfault.com/a/1190000014471794
+ * https://segmentfault.com/a/1190000010018086
+ */
+
 /**
  * Container main class.
  *
@@ -54,7 +62,7 @@ class Container implements \ArrayAccess //实现了ArrayAccess , $this->abc 可�
      */
     public function __construct(array $values = array())
     {
-        //SplObjectStorage是object集合,意味着object不能重复
+        //SplObjectStorage是object集合,意味着object不能重复  (闭包就是一个Closure object , 带有__invoke方法)
         $this->factories = new \SplObjectStorage();
         $this->protected = new \SplObjectStorage();
 
@@ -152,14 +160,25 @@ class Container implements \ArrayAccess //实现了ArrayAccess , $this->abc 可�
      */
     public function offsetUnset($id)
     {
+        //好吧 , 可以unset一个不存在的key , 不会报错 , 所以写成这样也可以,出于性能考虑?
+        /*
+        unset($this->values[$id], 
+              $this->frozen[$id], 
+              $this->raw[$id], 
+              $this->keys[$id],
+              $this->factories[$this->values[$id]],
+              $this->protected[$this->values[$id]]
+        );
+        */
 
         if (isset($this->keys[$id])) {
-            //TODO;不是应该判断是不是闭包吗
+            // 是object就可能是通过protect或factory方法设置的? (因为这两个方法只能设置callable的)
+            // 吐槽,没有类型声明的源码读起来真累,go和c的源码读起来就很舒服
             if (\is_object($this->values[$id])) {
                 unset($this->factories[$this->values[$id]], $this->protected[$this->values[$id]]);
             }
 
-            //将服务从字典中删除
+            //将服务从其余字典中删除
             unset($this->values[$id], $this->frozen[$id], $this->raw[$id], $this->keys[$id]);
         }
     }

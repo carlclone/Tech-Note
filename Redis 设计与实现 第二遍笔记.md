@@ -1,6 +1,10 @@
 ### Redis 设计与实现 第二遍笔记
 
 
+一口气看了两遍 , 因为可以看到有许多可以应用在实际工作业务中的多种策略的优劣权衡 , 如不停机扩容对应渐进式rehash , 
+过期键删除策略对应订单过期 , 持久化条件触发策略对应日志上传
+
+初步了解了集群的定义
 
 不停机扩容问题在 Redis中 的解决方案:
 
@@ -333,4 +337,76 @@ AOF(Append Only File)
 保存已执行命令 , 类比mysql的
 
 redisServer结构的 aof_buf 缓冲区 , 是一个字符串 , 每条命令有固定格式以区分开
+
+redis的服务器进程是一个事件循环 , (类似NIO的进程/ IO模型? 看伪代码不像) ,  有时间事件和文件事件 , 时间事件处理定时执行的函数 , 文件事件接收客户端的命令请求
+
+
+
+![image-20190907102757866](/Users/mojave/Tech-Note/image-20190907102757866.png)
+
+
+
+载入和还原AOF文件会通过一个伪客户端执行命令
+
+AOF重写不扫描AOF文件 , 而是扫描数据库 , 重新生成
+
+通过子进程进行AOF重写 , 不一致问题 , 也是类似"双写机制" , 会将主进程新产生的"写"命令放入AOF重写缓冲区 , 子进程完成AOF重写后会发送信号告知主进程 , 主进程再从缓冲区写入到AOF
+
+
+
+### 事件
+
+什么是Reactor模式
+
+IO多路复用
+
+单线程NIO模型 和Redis的简单设计原则
+
+IO多路复用的底层 select / epoll / evport / kqueue
+
+套接字队列
+
+![image-20190907144420336](/Users/mojave/Tech-Note/image-20190907144420336.png)
+
+![image-20190907144428661](/Users/mojave/Tech-Note/image-20190907144428661.png)
+
+
+
+一个套接字可能有多个事件可用 , 同时可读写的时候 : 先读再写
+
+
+
+可添加和删除某个套接字监听事件
+
+
+
+时间事件的抽象 : 3个属性 : id  , when , timeProc函数
+
+
+
+时间事件使用链表串起来
+
+![image-20190907144841659](/Users/mojave/Tech-Note/image-20190907144841659.png)
+
+
+
+上面的每一种抽象 , 作者都对相关API进行了介绍 , 学习了
+
+
+
+serverCron函数做的事情
+
+![image-20190907145239852](/Users/mojave/Tech-Note/image-20190907145239852.png)
+
+
+
+Pattern-Oriented Software Architecture Volume 4   , 11章的Reactor
+
+Linux System Programming Second Edition 第二章 Multiplexed I/O  第四章Event Poll
+
+Unix环境高级编程 第二版 14.5     IO多路复用相关
+
+
+
+### 客户端
 
