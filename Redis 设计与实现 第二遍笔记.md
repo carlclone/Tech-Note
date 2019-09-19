@@ -208,13 +208,13 @@ ht[1]用于rehash
 
 扩容缩容策略: 29页
 
-![image-20190905133937619](/Users/mojave/Documents/image-20190905133937619.png)
+![image-20190905133937619](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190905133937619.png)
 
-![image-20190905134208702](/Users/mojave/Documents/image-20190905134208702.png)
+![image-20190905134208702](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190905134208702.png)
 
-![image-20190905134219942](/Users/mojave/Documents/image-20190905134219942.png)
+![image-20190905134219942](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190905134219942.png)
 
-![image-20190905134308745](/Users/mojave/Documents/image-20190905134308745.png)
+![image-20190905134308745](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190905134308745.png)
 
 
 
@@ -226,7 +226,7 @@ ht[1]用于rehash
 
 V2EX上看到的"双写机制" , 删改查ht[0]的某个key的同时会rehash到ht[1] , 增则只增加ht[1] , 由于会将ht[0]中已rehash的数据删除,  所以是先查ht[0] 不存在再查ht[1] , 和mysql扩容策略不同
 
-![image-20190905140202968](/Users/mojave/Documents/image-20190905140202968.png)
+![image-20190905140202968](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190905140202968.png)
 
 
 
@@ -318,7 +318,7 @@ RDB (Redis DataBase)
 
 RDB文件结构 (书126页 ):
 
-![image-20190906102609864](/Users/mojave/Documents/image-20190906102609864.png)
+![image-20190906102609864](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190906102609864.png)
 
 字符串使用了LZF算法进行压缩
 
@@ -342,7 +342,7 @@ redis的服务器进程是一个事件循环 , (类似NIO的进程/ IO模型? �
 
 
 
-![image-20190907102757866](/Users/mojave/Tech-Note/image-20190907102757866.png)
+![image-20190907102757866](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190907102757866.png)
 
 
 
@@ -366,9 +366,9 @@ IO多路复用的底层 select / epoll / evport / kqueue
 
 套接字队列
 
-![image-20190907144420336](/Users/mojave/Tech-Note/image-20190907144420336.png)
+![image-20190907144420336](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190907144420336.png)
 
-![image-20190907144428661](/Users/mojave/Tech-Note/image-20190907144428661.png)
+![image-20190907144428661](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190907144428661.png)
 
 
 
@@ -386,7 +386,7 @@ IO多路复用的底层 select / epoll / evport / kqueue
 
 时间事件使用链表串起来
 
-![image-20190907144841659](/Users/mojave/Tech-Note/image-20190907144841659.png)
+![image-20190907144841659](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190907144841659.png)
 
 
 
@@ -396,7 +396,7 @@ IO多路复用的底层 select / epoll / evport / kqueue
 
 serverCron函数做的事情
 
-![image-20190907145239852](/Users/mojave/Tech-Note/image-20190907145239852.png)
+![image-20190907145239852](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190907145239852.png)
 
 
 
@@ -464,9 +464,9 @@ SLAVEOF命令
 
 使用PING PONG 进行应用层心跳检测
 
-![image-20190918105426076](/Users/mojave/Tech-Note/image-20190918105426076.png)
+![image-20190918105426076](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190918105426076.png)
 
-![image-20190918105532507](/Users/mojave/Tech-Note/image-20190918105532507.png)
+![image-20190918105532507](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190918105532507.png)
 
 复制的身份验证逻辑
 
@@ -480,9 +480,9 @@ REPLCONF ACK 心跳检测策略的作用:
 
 检测命令丢失 , 通过偏移量不一致确定
 
-![image-20190918105932141](/Users/mojave/Tech-Note/image-20190918105932141.png)
+![image-20190918105932141](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190918105932141.png)
 
-![image-20190918105946381](/Users/mojave/Tech-Note/image-20190918105946381.png)
+![image-20190918105946381](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190918105946381.png)
 
 
 
@@ -504,13 +504,13 @@ Sentinel 只是一个运行在特殊模式下的Redis服务器 , 同样使用Red
 
 关键结构:
 
-![image-20190918111415690](/Users/mojave/Tech-Note/image-20190918111415690.png)
+![image-20190918111415690](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190918111415690.png)
 
-![image-20190918111500796](/Users/mojave/Tech-Note/image-20190918111500796.png)
+![image-20190918111500796](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190918111500796.png)
 
 sentinel和每个master创建两个异步连接
 
-![image-20190918111703278](/Users/mojave/Tech-Note/image-20190918111703278.png)
+![image-20190918111703278](https://github.com/carlclone/Tech-Note/blob/master/imgs/image-20190918111703278.png)
 
 每10秒一次的频率发送INFO命令到master , 实现监视 , 并获取关联从服务器的信息 , 建立关联从服务器instance列表 , 
 
