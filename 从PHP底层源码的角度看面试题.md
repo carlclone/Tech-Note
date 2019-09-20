@@ -1,3 +1,58 @@
+### 为什么foreach比for快
+
+因为php数组的底层是哈希结构 , bucket之间是一条双向链表 , foreach的时候直接取next的值即可 , 同时foreach是根据插入顺序遍历的 , 如果需要有序遍历 , 只能用for循环
+
+for比foreach慢的原因 , 可能是多出的一个条件判断造成的 , 因此能用foreach就尽量用foreach
+
+
+
+### foreach中的一个小陷阱
+
+```
+$arr = array('1','2','3');
+foreach($arr as &$v){
+}
+foreach($arr as $v){
+}
+var_dump($arr);
+
+//结果
+array
+  0 => string '1' (length=1)
+  1 => string '2' (length=1)
+  2 => &string '2' (length=1)
+```
+
+
+
+预期结果应该是1 2 3 , 为什么是1 2 2 呢 ?
+
+```
+因为在第一个循环的最后一次执行中 , 由于$v为引用变量，所以$v 与 $arr[ 2 ] 指向了同一个地址空间 , 于是在第二次循环的时候 , 不断将值赋给arr[2]的zval结构体,  arr的变化如下:
+```
+
+[ 1 , 2 , 1 ]
+
+[ 1 , 2 , 2 ]
+
+[ 1, 2 , 2 ]
+
+
+
+### unset
+
+unset只删除php层引用变量的映射关系 , 并不会清空底层zval变量的内存空间
+
+
+
+### 为什么要小心使用PHP的引用
+
+PHP采用的复制机制是“引用计数，写时复制”，也就是说，即便在PHP里复制一个变量，最初的形式从根本上说其实仍然是引用的形式，只有当变量的内容发生变化时，才会出现真正的复制。
+
+
+
+
+
 ### 引用和指针的区别
 
 
@@ -124,4 +179,6 @@ http://www.laruence.com/php-internal
 
 1. resource（资源）
 2. NULL（空）
+
+
 
