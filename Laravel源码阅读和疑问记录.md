@@ -4,7 +4,55 @@
 
 Java 的一个叫做 Netty 的网络框架的中间件实现, 则直接使用了双向链表 , 显得更直观易懂
 
-许多文章使用装饰器模式去解释,晦涩难懂
+许多文章使用装饰器模式去解释,理解起来不够直观,并且实际执行的时候还有前置后置,执行顺序像一棵树,反而复杂了,我更倾向于链表中间件简单明了的设计
+
+参考 Laravel 实现提取出来的一个 closure middleware demo
+```
+<?php
+
+function main()
+{
+    $middleWareList = [
+        Echo1::class,
+        Echo2::class
+    ];
+    $executionTree = buildMiddleWareList($middleWareList);
+    $executionTree();
+}
+
+class Echo1 {
+    public static function handle(Closure $next)
+    {
+        $next();
+        echo 1; 
+    }
+}
+
+class Echo2 {
+    public static function handle(Closure $next)
+    {
+        echo 2;
+        $next(); 
+    }
+}
+
+function buildMiddleWareList(array $list):Closure
+{
+
+    $initFunc = function () {
+    };
+    $list = array_reverse($list);
+    $buildFunc = function (Closure $last,$class) {
+        return function () use ($last,$class){
+            return $class::handle($last);
+        };
+
+    };
+    return array_reduce($list, $buildFunc, $initFunc);
+}
+
+main();
+```
 
 
 ### ORM部分的整体结构

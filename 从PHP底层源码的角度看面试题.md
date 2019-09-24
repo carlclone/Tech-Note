@@ -97,6 +97,7 @@ https://blog.csdn.net/chen1083376511/article/details/82721749
 
 参考: 
 
+[如何获取一个变量的名字](http://www.laruence.com/2010/12/08/1716.html)
 https://segmentfault.com/a/1190000018535960
 
 # [许铮的技术成长之路](https://segmentfault.com/blog/xuzheng_tech_growth)
