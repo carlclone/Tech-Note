@@ -6,8 +6,8 @@ Java 的一个叫做 Netty 的网络框架的中间件实现, 则直接使用了
 
 许多文章使用装饰器模式去解释,理解起来不够直观,并且实际执行的时候还有前置后置,执行顺序像一棵树,反而复杂了,我更倾向于链表中间件简单明了的设计
 
-参考 Laravel 实现提取出来的一个 closure middleware demo
-```
+参考 Laravel 实现提取出来的一个 闭包中间件 demo
+```php
 <?php
 
 function main()
@@ -52,6 +52,49 @@ function buildMiddleWareList(array $list):Closure
 }
 
 main();
+```
+
+链表中间件 demo
+
+```php
+function main()
+{
+    $middleware2 = new Node('echo2', function () {
+        echo 2;
+    },null);
+    $middleware1 = new Node('echo1', function () {
+        echo 1;
+    },$middleware2);
+
+    $node = $middleware1;
+    while ($node != null) {
+        $closure = $node->value;
+        $closure();
+        $node = $node->next;
+    }
+
+}
+
+main();
+
+class Node {
+    public $name;
+    public $value;
+    public $next;
+
+    /**
+     * Node constructor.
+     * @param $name
+     * @param $value
+     * @param $next
+     */
+    public function __construct($name, $value, $next)
+    {
+        $this->name = $name;
+        $this->value = $value;
+        $this->next = $next;
+    }
+}
 ```
 
 
