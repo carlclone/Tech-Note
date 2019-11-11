@@ -139,6 +139,7 @@ func zhangDaYeSay(conn *net.TCPConn) {
 // 李大爷的耳朵，实现是和张大爷类似的
 func liDaYeListen(conn *net.TCPConn, wg *sync.WaitGroup) {
 	// waitGroup，等待所有协程结束才结束 , 为什么张大爷的实现里不需要wg
+	// waitGroup的使用方法？
 	defer wg.Done()
 	for count < total {
 		r, err := readFrom(conn)
