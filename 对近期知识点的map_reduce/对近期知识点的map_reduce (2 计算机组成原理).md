@@ -96,23 +96,17 @@
 
 1.计算机组成原理课15 ,16
 
-2.公众号<是不是很酷> - 浮点数文章
+2.[公众号<是不是很酷> - 浮点数文章](https://mp.weixin.qq.com/s/0KDPWQXhBIsDDQwo3FYlag)
 
-https://mp.weixin.qq.com/s/0KDPWQXhBIsDDQwo3FYlag
+3.[网页资料](https://www.jianshu.com/p/7c636d8f18d5)
 
-3.网页资料 
-
-https://www.jianshu.com/p/7c636d8f18d5
-
-4.IEEE754 
+4.IEEE754官方资料 
 
 https://ieeexplore.ieee.org/document/4610935
 
 https://zh.wikipedia.org/zh-hans/IEEE_754
 
-5.实现参考 
-
-https://blog.csdn.net/crjmail/article/details/79723051
+5.[实现参考](https://blog.csdn.net/crjmail/article/details/79723051)
 
 
 
@@ -247,7 +241,7 @@ JS对象完整拷贝
 
 
 
-### 组成原理课 11丨二进制编码：“手持两把锟斤拷，口中疾呼烫烫烫”？
+### 组成原理课 11丨二进制编码
 
 
 

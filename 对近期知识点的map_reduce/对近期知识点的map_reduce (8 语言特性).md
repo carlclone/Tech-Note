@@ -44,6 +44,16 @@ js的await / async也是协程 , 和py模型一样 , 但是使用方式不太一
 
 https://en.wikipedia.org/wiki/Coroutine
 
+https://en.wikipedia.org/wiki/Thread_safety
+
+https://en.wikipedia.org/wiki/Race_condition#Computing
+
+[多线程可以同时使用 CPU 的多个核心？](https://v2ex.com/t/285551)
+
+[python并发编程 demo库]()
+
+
+
 
 
 ### Py的并发接口
